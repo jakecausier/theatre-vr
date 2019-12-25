@@ -66,16 +66,13 @@ loader.load('../../models/TheatreEmpty/TheatreEmpty.gltf',
   }
 );
 
-renderer.setAnimationLoop( loop() )
+renderer.setAnimationLoop( render() )
 
 window.addEventListener( 'resize', onWindowResize, false );
 
-function loop() {
-
-  // controls.update();
+function render() {
   renderer.render(scene, camera);
-  requestAnimationFrame(loop);
-
+  renderer.animate(render);
 }
 
 function onWindowResize() {
