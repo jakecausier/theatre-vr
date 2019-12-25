@@ -19,6 +19,7 @@ function init() {
 
   camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 50000)
   camera.position.set( 0, 1000, 1000 )
+  camera.layers.enable( 1 )
 
 
   var screenWidth = 6500
@@ -35,7 +36,6 @@ function init() {
 
   var spotLight = new THREE.SpotLight( 0xffffff );
   spotLight.position.set( 0, 2800, 7800 );
-  spotLight.castShadow = true;
   spotLight.angle = 1.3;
   spotLight.penumbra = 0.2;
   spotLight.decay = 2;
@@ -52,8 +52,6 @@ function init() {
 
   loader.load('../../models/TheatreEmpty/TheatreEmpty.gltf',
     function (gltf) {
-      gltf.scene.castShadow = true
-      gltf.scene.receiveShadow = true
       scene.add(gltf.scene)
     },
     function (xhr) {
@@ -64,15 +62,16 @@ function init() {
     }
   );
 
-  renderer = new THREE.WebGLRenderer({ antialias: false });
-  renderer.setSize(window.innerWidth, window.innerHeight)
+
+  renderer = new THREE.WebGLRenderer();
   renderer.setPixelRatio(window.devicePixelRatio)
-  renderer.shadowMap.enabled = true
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap
+  renderer.setSize(window.innerWidth, window.innerHeight)
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.xr.enabled = true;
+
   document.body.appendChild(renderer.domElement)
-  document.body.appendChild(VRButton.createButton(renderer));
+  document.body.appendChild(VRButton.createButton(renderer, { referenceSpaceType: 'local' }));
+
 
   // Listen for if the window is resized
   window.addEventListener( 'resize', onWindowResize, false );
@@ -81,7 +80,7 @@ function init() {
 
 function animate() {
   // Render everything in a loop
-  renderer.setAnimationLoop( render() )
+  renderer.setAnimationLoop( render )
 }
 
 function render() {
@@ -91,5 +90,6 @@ function render() {
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
+
   renderer.setSize( window.innerWidth, window.innerHeight );
 }
