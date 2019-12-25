@@ -66,10 +66,6 @@ loader.load('../../models/TheatreEmpty/TheatreEmpty.gltf',
   }
 );
 
-
-const controls = new VRControls(camera)
-controls.update()
-
 renderer.setAnimationLoop( loop() )
 
 window.addEventListener( 'resize', onWindowResize, false );
