@@ -18,6 +18,7 @@ renderer.xr.enabled = true;
 document.body.appendChild(renderer.domElement)
 document.body.appendChild(VRButton.createButton(renderer));
 
+
 var scene = new THREE.Scene();
 window.scene = scene;
 
@@ -65,14 +66,13 @@ loader.load('../../models/TheatreEmpty/TheatreEmpty.gltf',
   }
 );
 
-// const controls = new VRControls(camera)
-// const controls = new THREE.OrbitControls(camera, renderer.domElement)
-// controls.update()
 
-
-console.log('THREE loaded')
+const controls = new VRControls(camera)
+controls.update()
 
 renderer.setAnimationLoop( loop() )
+
+window.addEventListener( 'resize', onWindowResize, false );
 
 function loop() {
 
@@ -80,4 +80,10 @@ function loop() {
   renderer.render(scene, camera);
   requestAnimationFrame(loop);
 
+}
+
+function onWindowResize() {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize( window.innerWidth, window.innerHeight );
 }
