@@ -1,5 +1,17 @@
+
+@import 'video.js';
+
 body {
   padding: 0;
   margin: 0;
   overflow: hidden;
+}
+
+#player {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 480px !important;
+  height: 270px !important;
+  z-index: -1;
 }

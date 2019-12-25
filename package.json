@@ -19,6 +19,7 @@
     "three": "^0.112.0",
     "three-fbx-loader": "^1.0.3",
     "three-orbitcontrols": "^2.110.3",
-    "three-vrcontrols-module": "^2.2.1"
+    "three-vrcontrols-module": "^2.2.1",
+    "video.js": "^7.6.6"
   }
 }
