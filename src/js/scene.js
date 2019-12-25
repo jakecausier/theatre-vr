@@ -21,7 +21,7 @@ function init() {
 
   video = document.getElementById('player');
   player = videojs('player');
-  player.play();
+  // player.play();
 
   scene = new THREE.Scene();
   window.scene = scene;
@@ -80,7 +80,7 @@ function init() {
   renderer.setPixelRatio(window.devicePixelRatio)
   renderer.setSize(window.innerWidth, window.innerHeight)
   renderer.outputEncoding = THREE.sRGBEncoding;
-  // renderer.xr.enabled = true;
+  renderer.xr.enabled = true;
 
   document.body.appendChild(renderer.domElement)
   document.body.appendChild(VRButton.createButton(renderer));
@@ -92,8 +92,8 @@ function init() {
   camera.lookAt(screen.position)
 
 
-  controls = new OrbitControls( camera, renderer.domElement );
-  controls.update();
+  // controls = new OrbitControls( camera, renderer.domElement );
+  // controls.update();
 
 
   // Listen for if the window is resized
