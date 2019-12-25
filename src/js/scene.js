@@ -3,9 +3,10 @@ const THREE = require('three')
 
 import { VRButton } from 'three/examples/jsm/webxr/VRButton.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 var loader = new GLTFLoader();
-var renderer, camera, scene;
+var renderer, controls, camera, scene;
 
 init();
 animate();
@@ -15,11 +16,6 @@ function init() {
 
   scene = new THREE.Scene();
   window.scene = scene;
-
-
-  camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 50000)
-  camera.position.set( 0, 1000, 1000 )
-  camera.layers.enable( 1 )
 
 
   var screenWidth = 6500
@@ -46,7 +42,7 @@ function init() {
   scene.add( lightHelper )
 
 
-  var light = new THREE.AmbientLight( 0xFFDD80, 0.25 )
+  var light = new THREE.AmbientLight( 0xFFDD80, 0.025 )
   scene.add( light )
 
 
@@ -63,14 +59,23 @@ function init() {
   );
 
 
-  renderer = new THREE.WebGLRenderer();
+  renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setPixelRatio(window.devicePixelRatio)
   renderer.setSize(window.innerWidth, window.innerHeight)
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.xr.enabled = true;
 
   document.body.appendChild(renderer.domElement)
-  document.body.appendChild(VRButton.createButton(renderer, { referenceSpaceType: 'local' }));
+  document.body.appendChild(VRButton.createButton(renderer));
+
+
+  camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 50000)
+  camera.position.set( 0, 1600, 2600 )
+  camera.layers.enable( 1 )
+
+
+  // controls = new OrbitControls( camera, renderer.domElement );
+  // controls.update();
 
 
   // Listen for if the window is resized
@@ -85,6 +90,7 @@ function animate() {
 
 function render() {
   renderer.render(scene, camera);
+  // controls.update();
 }
 
 function onWindowResize() {
