@@ -32,7 +32,15 @@ function init() {
   overlay.remove()
 
   scene = new THREE.Scene()
+  scene.background = new THREE.Color( 0x1a263b );
+  scene.fog = new THREE.Fog( 0x1a263b, 500, 1000 );
   window.scene = scene
+
+  var geometry = new THREE.PlaneBufferGeometry( 1000, 1000, 32 );
+  var material = new THREE.MeshBasicMaterial({ color: 0x4e648a })
+  var floor = new THREE.Mesh( geometry, material )
+  floor.rotation.x = - Math.PI / 2;
+  scene.add(floor)
 
   load()
 
@@ -40,8 +48,8 @@ function init() {
   player = videojs('player')
   player.play()
 
-  var screenWidth = (1280 / 2) // 6500
-  var screenHeight = (720 / 2) // 3375
+  var screenWidth = (1280 / 5) // 6500
+  var screenHeight = (720 / 5) // 3375
 
   var invisiMat = new THREE.MeshBasicMaterial();
   invisiMat.transparent = true;
@@ -62,17 +70,17 @@ function init() {
   screenMat.encoding = THREE.sRGBEncoding
   var screenGeo = new THREE.PlaneBufferGeometry(screenWidth, screenHeight, 1, 1)
   var screen = new THREE.Mesh(screenGeo, screenMat)
-  screen.position.set(0, 240, 780)
-  screen.lookAt(0, 240, 0)
+  screen.position.set(0, (screenHeight / 1.8), 150)
+  screen.lookAt(0, (screenHeight / 2), 0)
   scene.add(screen)
 
 
   targetBox = new THREE.Object3D();
-  targetBox.position.set(0, 0, 800)
+  targetBox.position.set(0, 0, 80)
   scene.add(targetBox);
 
   lightScreen = new THREE.SpotLight(0x000000, 0.05)
-  lightScreen.position.set(0, 800, 800)
+  lightScreen.position.set(0, 80, 80)
   lightScreen.target = targetBox
   lightScreen.angle = 1.3
   lightScreen.penumbra = 0.2
@@ -81,9 +89,9 @@ function init() {
   scene.add(lightScreen)
 
 
-  setupRoofLight(600, 1000, 0xFFDD80, 0.5)
-  setupRoofLight(-200, 1000, 0xFFDD80, 0.5)
-  setupRoofLight(-800, 1000, 0xFFDD80, 0.5)
+  // setupRoofLight(600, 1000, 0xFFDD80, 0.5)
+  // setupRoofLight(-200, 1000, 0xFFDD80, 0.5)
+  // setupRoofLight(-800, 1000, 0xFFDD80, 0.5)
 
 
   renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -96,17 +104,22 @@ function init() {
 
 
   camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 4000);
-  camera.position.set( 0, 160, 200 );
-  camera.lookAt(screen.position);
-  camera.layers.enable( 1 )
+  // camera.position.set( 0, 160, 200 );
+  // camera.lookAt(screen.position);
+  // camera.layers.enable( 1 )
+
+
+  var vrUser = new THREE.Group();
+  vrUser.position.set( 0, 32, 0 );
+  vrUser.rotation.set(0, (Math.PI), 0);
+  scene.add(vrUser);
+  vrUser.add(camera);
 
 
   if ( enableControls ) {
     controls = new OrbitControls( camera, renderer.domElement );
     controls.enableDamping = true
     controls.dampingFactor = 0.05
-    controls.minDistance = 100
-    controls.maxDistance = 600
     controls.update();
   }
 
@@ -134,10 +147,10 @@ function init() {
 function load() {
   var obj
 
-  loader.load('../../models/TheatreEmpty/TheatreEmpty.gltf',
+  loader.load('../../models/Chair/Chair.gltf',
     function (gltf) {
       obj = gltf.scene
-      obj.scale.set(0.1, 0.1, 0.1)
+      obj.scale.set(0.05, 0.05, 0.05)
       scene.add(obj)
     },
     function (xhr) {
