@@ -5,22 +5,33 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="./build/css/style.css" rel="stylesheet">
+  <script src="./build/js/scene.js" type="text/javascript"></script>
 </head>
 <body>
 
-  <div id="overlay">
+<!--   <div id="overlay">
     <div>
       <button id="startButton" type="button">Click to enter ComfyTheatre</button>
     </div>
-  </div>
+  </div> -->
 
-  <video id="player" class="video-js" controls poster="https://comfytheatre.co.uk/wp-content/uploads/2019/11/theatre_curtains.jpg">
-    <source src="//comfytheatre.co.uk:8080/hls/films.m3u8" type="application/x-mpegurl" />
-    <p class="vjs-no-js">To view this video, please enable JavaScript or upgrade to a browser that <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
-  </video>
+  <a-scene>
+
+    <a-assets>
+      <video id="player" class="video-js" crossorigin="allow-all" muted>
+        <source src="https://comfytheatre.co.uk:8080/hls/films.m3u8" type="application/x-mpegurl" />
+      </video>
+    </a-assets>
+
+    <a-video src="#player" width="16" height="9" position="0 5 -20" scale="2 2 1"></a-video>
+
+    <a-plane position="0 0 0" rotation="-90 0 0" width="9" height="9" color="#7BC8A4"></a-plane>
+
+    <a-sky color="#ECECEC"></a-sky>
+
+  </a-scene>
 
   <script src="./build/js/video.js" type="text/javascript"></script>
-  <script src="./build/js/scene.js" type="text/javascript"></script>
 
 </body>
 </html>
