@@ -9,11 +9,21 @@
 </head>
 <body>
 
+  <div id="overlay">
+    <div>
+      <button id="enter">
+        Enter ComfyTheatre VR
+      </button>
+    </div>
+  </div>
+
   <a-scene>
+
+    <a-node id="dummy"></a-node>
 
     <a-assets>
       <video id="player" class="video-js" crossorigin="anonymous">
-        <source src="//comfytheatre.co.uk:8080/hls/films.m3u8" type="application/x-mpegurl" />
+        <source id="source-films" src="//comfytheatre.co.uk:8080/hls/films.m3u8" type="application/x-mpegurl">
       </video>
     </a-assets>
 
@@ -21,13 +31,22 @@
       <img id="ui-play" src="../../build/img/icon-play.png" />
     </a-assets>
 
-    <a-video src="#player" width="16" height="9" position="0 2.5 -10" scale="1 1 1"></a-video>
+    <a-video
+      src="#player"
+      width="16"
+      height="9"
+      position="0 2.5 -10"
+      scale="1 1 1"
+      event-set__enter="_event: mouseenter; _target: #view-target; material.opacity: 0"
+      event-set__leave="_event: mouseleave; _target: #view-target; material.opacity: 0.25"
+    ></a-video>
 
     <a-plane position="0 0 0" rotation="-90 0 0" width="5" height="5" color="darkred"></a-plane>
     <a-sky color="#111111"></a-sky>
 
     <a-entity camera look-controls position="0 1.6 0">
       <a-entity
+        id="view-target"
         position="0 0 -0.1"
         scale="0.025 0.025 0.025"
         geometry="primitive: ring; radiusInner: 0.05; radiusOuter: 0.10;"
@@ -42,18 +61,22 @@
 
     <a-entity
       id="ui-menu"
-      position="0 0.75 -0.75"
+      position="0 0.3 -0.3"
       rotation="-45 0 0"
-      geometry="primitive: plane; height: 0.25;"
-      material="shader: flat; transparent: true; opacity: 0.5; color: white;"
+      geometry="primitive: plane; height: 2; width: 5;"
+      material="shader: flat; transparent: true; opacity: 0;"
+      event-set__enter="_event: mouseenter; _target: .link; material.opacity: 1"
+      event-set__leave="_event: mouseleave; _target: .link; material.opacity: 0"
     >
       <a-entity
         label="Play / Pause"
         class="link"
-        position="0 0 0.1"
+        position="0 0.75 0.1"
         rotation="0 0 0"
         geometry="primitive: plane; height: 0.25; width: 0.25"
-        material="shader: flat; transparent: true; src: #ui-play"
+        material="shader: flat; transparent: true; opacity: 0; src: #ui-play"
+        event-set__enter="_event: mouseenter; _target: #view-target; material.opacity: 1; material.color: white;"
+        event-set__leave="_event: mouseleave; _target: #view-target; material.opacity: 0.25; material.color: black;"
         ui-playbutton
       >
       </a-entity>
@@ -61,7 +84,7 @@
 
   </a-scene>
 
-  <script src="./build/js/video.js" type="text/javascript"></script>
+  <script src="./build/js/script.js" type="text/javascript"></script>
 
 </body>
 </html>
