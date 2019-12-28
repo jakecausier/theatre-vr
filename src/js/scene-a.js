@@ -3,6 +3,9 @@ require('aframe')
 require('aframe-event-set-component')
 
 window.THREE.TextureLoader.prototype.crossOrigin = '';
+window.THREE.ImageLoader.prototype.crossOrigin = '';
+window.THREE.ImageUtils.crossOrigin = '';
+
 
 AFRAME.registerComponent('ui-playbutton', {
   init: function () {
@@ -13,4 +16,4 @@ AFRAME.registerComponent('ui-playbutton', {
   }
 });
 
-console.log(window.THREE)
+// THREE.WebGLState: DOMException: Failed to execute 'texImage2D' on 'WebGLRenderingContext': The video element contains cross-origin data, and may not be loaded.
