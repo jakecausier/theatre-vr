@@ -2,6 +2,7 @@
 require('aframe')
 require('aframe-event-set-component')
 
+window.THREE.TextureLoader.prototype.crossOrigin = '';
 
 AFRAME.registerComponent('ui-playbutton', {
   init: function () {
@@ -11,3 +12,5 @@ AFRAME.registerComponent('ui-playbutton', {
     });
   }
 });
+
+console.log(window.THREE)
