@@ -8,6 +8,11 @@ body {
   overflow: hidden;
 }
 
+a-assets,
+a-scene video {
+  display: block !important;
+}
+
 #container {
   position: absolute;
   top: 0;
@@ -53,7 +58,7 @@ body {
   position: absolute;
   top: 0;
   right: 0;
-  width: 220px !important;
-  height: 120px !important;
+  width: 480px !important;
+  height: 240px !important;
   z-index: 10;
 }

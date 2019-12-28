@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "aframe": "^1.0.2",
+    "aframe-event-set-component": "^5.0.0",
     "fast-average-color": "^5.2.1",
     "three": "^0.112.0",
     "three-fbx-loader": "^1.0.3",

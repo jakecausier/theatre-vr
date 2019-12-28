@@ -1,7 +1,8 @@
 import videojs from 'video.js'
 
 var video, player
+videojs.log.level('off')
 
 video = document.getElementById('player')
-player = videojs('player')
-player.play()
+document.player = videojs('player')
+
