@@ -17,7 +17,7 @@
     </div>
   </div>
 
-  <a-scene>
+  <a-scene stats>
     <a-node id="dummy"></a-node>
 
     <a-assets>
@@ -28,6 +28,7 @@
 
     <a-assets>
       <img id="ui-play" src="../../build/img/icon-play.png" />
+      <a-asset-item id="model-chair" src="../../models/Chair/Chair.gltf"></a-asset-item>
     </a-assets>
 
     <a-video
@@ -58,13 +59,20 @@
       </a-camera>
     </a-entity>
 
+    <a-entity
+      gltf-model="#model-chair"
+      position="0 0 0.25"
+      scale="0.0022 0.0022 0.0022"
+      rotation="0 180 0"
+    ></a-entity>
+
     <a-gui-flex-container
       id="ui-menu"
       flex-direction="column"
       justify-content="center"
       align-items="normal"
       opacity="0.5" width="2.5" height="1"
-      position="0 0.5 -0.5" rotation="-75 0 0" scale="0.5 0.5 0.5"
+      position="0 0.4 -0.5" rotation="-45 0 0" scale="0.5 0.5 0.5"
     >
       <a-gui-button
         width="1" height="0.25"
