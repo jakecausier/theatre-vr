@@ -18,11 +18,10 @@
   </div>
 
   <a-scene>
-
     <a-node id="dummy"></a-node>
 
     <a-assets>
-      <video id="player" class="video-js" crossorigin="anonymous">
+      <video id="player" class="video-js" crossorigin="anonymous" controls>
         <source id="source-films" src="//comfytheatre.co.uk:8080/hls/films.m3u8" type="application/x-mpegurl">
       </video>
     </a-assets>
@@ -32,62 +31,63 @@
     </a-assets>
 
     <a-video
+      id="screen"
       src="#player"
       width="16"
       height="9"
       position="0 2.5 -10"
       scale="1 1 1"
-      event-set__enter="_event: mouseenter; _target: #view-target; material.opacity: 0"
-      event-set__leave="_event: mouseleave; _target: #view-target; material.opacity: 0.25"
+      event-set__enter="_event: mouseenter; _target: #cursor; visible: false"
+      event-set__leave="_event: mouseleave; _target: #cursor; visible: true"
+      gui-interactable
     ></a-video>
 
-    <a-plane position="0 0 0" rotation="-90 0 0" width="5" height="5" color="darkred"></a-plane>
+    <a-plane position="0 0 0" rotation="-90 0 0" width="3" height="3" color="darkred"></a-plane>
     <a-sky color="#111111"></a-sky>
 
-    <a-camera position="0 1.6 0" fov="110" wasd-controls-enabled="false">
-      <a-entity
-        id="view-target"
-        position="0 0 -0.1"
-        scale="0.025 0.025 0.025"
-        geometry="primitive: ring; radiusInner: 0.05; radiusOuter: 0.10;"
-        material="color: black; shader: flat; transparent: true; opacity: 0.25;"
-        cursor="maxDistance: 30; fuse: true">
-        <a-animation begin="click" easing="ease-in" attribute="scale"
-             fill="forwards" from="0.2 0.2 0.2" to="1 1 1" dur="150"></a-animation>
-        <a-animation begin="fusing" easing="ease-in" attribute="scale"
-           fill="backwards" from="1 1 1" to="0.2 0.2 0.2" dur="1500"></a-animation>
-      </a-entity>
-    </a-camera>
-
-    <a-entity
-      id="ui-menu"
-      position="0 0.5 0"
-      rotation="-75 0 0"
-      geometry="primitive: plane; height: 2; width: 5;"
-      material="shader: flat; transparent: true; wireframe: true; color: white; opacity: 1;"
-      event-set__enter="_event: mouseenter; _target: #uiPlay; material.opacity: 1"
-      event-set__leave="_event: mouseleave; _target: #uiPlay; material.opacity: 0"
-    >
-      <a-entity
-        label="Play / Pause"
-        id="uiPlay"
-        position="0 0.5 0.1"
-        rotation="0 0 0"
-        geometry="primitive: plane; height: 0.25; width: 0.25"
-        material="shader: flat; transparent: true; opacity: 0; src: #ui-play"
-        event-set__enter="_event: mouseenter; _target: #view-target; material.opacity: 1; material.color: white;"
-        event-set__leave="_event: mouseleave; _target: #view-target; material.opacity: 0.25; material.color: black;"
-        ui-playbutton
-      >
-        <a-text
-          align="center"
-          width="1"
-          position="0 -0.1 0"
-          color="white"
-          value="Start Stream"
-        ></a-text>
-      </a-entity>
+    <a-entity>
+      <a-camera fov="110" wasd-controls-enabled="false">
+        <a-gui-cursor
+          id="cursor"
+          color="#FFFFFF"
+          raycaster="objects: [gui-interactable]"
+          fuse="true" fuse-timeout="1000"
+          design="ring"
+          visible="true"
+        ></a-gui-cursor>
+      </a-camera>
     </a-entity>
+
+    <a-gui-flex-container
+      id="ui-menu"
+      flex-direction="column"
+      justify-content="center"
+      align-items="normal"
+      opacity="0.5" width="2.5" height="1"
+      position="0 0.5 -0.5" rotation="-75 0 0" scale="0.5 0.5 0.5"
+    >
+      <a-gui-button
+        width="1" height="0.25"
+        position="0 0 0.05"
+        font-size="42px"
+        key-code="32"
+        value="Start Video"
+        margin="0 0 0.25 0"
+        toggle="false"
+        onclick="startVideo"
+      >
+      </a-gui-button>
+      <a-gui-slider
+        id="player-volume"
+        width="2" height="0.25"
+        position="0 0 0.05"
+        margin="0 0 0.25 0"
+        percent="0.5"
+        left-right-padding="0"
+        onclick="changeVolume"
+      >
+      </a-gui-slider>
+    </a-gui-flex-container>
 
   </a-scene>
 
