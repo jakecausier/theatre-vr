@@ -17,12 +17,11 @@
     </div>
   </div>
 
-  <a-scene stats>
+  <a-scene environment="preset: default; shadow: true" touch-to-click-converter stats>
     <a-node id="dummy"></a-node>
 
     <a-assets>
-      <video id="player" class="video-js" crossorigin="anonymous" controls>
-        <source id="source-films" src="//comfytheatre.co.uk:8080/hls/films.m3u8" type="application/x-mpegurl">
+      <video id="player" class="video-js" crossorigin="">
       </video>
     </a-assets>
 
@@ -48,14 +47,15 @@
 
     <a-entity>
       <a-camera fov="110" wasd-controls-enabled="false">
-        <a-gui-cursor
-          id="cursor"
-          color="#FFFFFF"
-          raycaster="objects: [gui-interactable]"
-          fuse="true" fuse-timeout="1000"
-          design="ring"
-          visible="true"
-        ></a-gui-cursor>
+
+        <a-entity
+          cursor="fuse: true; fuseTimeout: 500"
+          raycaster="interval: 1000;"
+          position="0 0 -0.5"
+          geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.025"
+          material="color: white; shader: flat">
+        </a-entity>
+
       </a-camera>
     </a-entity>
 
@@ -65,7 +65,7 @@
       scale="0.0022 0.0022 0.0022"
       rotation="0 180 0"
     ></a-entity>
-
+    
     <a-gui-flex-container
       id="ui-menu"
       flex-direction="column"

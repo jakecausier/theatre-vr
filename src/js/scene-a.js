@@ -2,15 +2,16 @@
 require('aframe')
 require('aframe-gui')
 require('aframe-event-set-component')
+require('super-hands');
 
 
 // To-Add
 // https://www.npmjs.com/package/aframe-particle-system-component
 
 
-window.THREE.TextureLoader.prototype.crossOrigin = '';
-window.THREE.ImageLoader.prototype.crossOrigin = '';
-window.THREE.ImageUtils.crossOrigin = '';
+window.THREE.TextureLoader.prototype.crossOrigin = 'anonymous';
+window.THREE.ImageLoader.prototype.crossOrigin = 'anonymous';
+window.THREE.ImageUtils.crossOrigin = 'anonymous';
 
 window.THREE.gammaOutput = true;
 window.THREE.gammaFactor = 2.2;
@@ -24,6 +25,12 @@ window.startVideo = function () {
   defaultVolume = playerSlider.getAttribute('percent');
   console.log('Getting default volume from element...', defaultVolume)
   document.player.volume(defaultVolume);
+
+  document.player.setAttribute('crossorigin', 'anonymous');
+  document.player.src({
+    type: 'application/x-mpegurl',
+    src: '//comfytheatre.co.uk:8080/hls/cal.m3u8'
+  });
   document.player.play();
 }
 

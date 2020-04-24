@@ -12,6 +12,7 @@ startButton.addEventListener('click', function () {
 
 function load() {
   document.getElementById('dummy').load();
-  document.getElementById('overlay').remove()
+  document.getElementById('overlay').remove();
+
   document.player = videojs('player')
 }
