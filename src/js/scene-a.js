@@ -29,7 +29,8 @@ window.startVideo = function () {
   document.player.setAttribute('crossorigin', 'anonymous');
   document.player.src({
     type: 'application/x-mpegurl',
-    src: '//comfytheatre.co.uk:8080/hls/cal.m3u8'
+    src: 'https://comfytheatre.co.uk:8080/hls/cal.m3u8',
+    withCredentials: true,
   });
   document.player.play();
 }
